@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Client Email</title>
+  <link rel="stylesheet" href="taskpane.css" />
+  <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <script type="text/javascript" src="taskpane.js"></script>
+</head>
+<body>
+  <!-- Pick a client -->
+  <section id="pickView" hidden>
+    <h1>Choose client</h1>
+
+    <label for="clientFilter">Search</label>
+    <input id="clientFilter" type="text" placeholder="Type to filter…" autocomplete="off" />
+
+    <label for="clientSelect">Client</label>
+    <select id="clientSelect" size="8"></select>
+
+    <label for="topicInput">Topic</label>
+    <input id="topicInput" type="text" placeholder="e.g. Weekly Update" />
+    <p class="hint">Subject becomes: <strong id="subjectPreview">…</strong></p>
+
+    <button id="applyBtn" class="primary">Apply</button>
+    <p id="pickStatus" class="status" role="status"></p>
+
+    <p class="footer"><a href="#" id="openSettings">Edit client list &amp; template</a></p>
+  </section>
+
+  <!-- Settings -->
+  <section id="settingsView" hidden>
+    <h1>Settings</h1>
+    <p class="hint">Saved in this mailbox only. Everyone who signs in to this ID sees the same list.</p>
+
+    <label for="clientsText">Clients (one per line)</label>
+    <textarea id="clientsText" rows="10" placeholder="Acme Corp&#10;Globex Ltd"></textarea>
+
+    <label for="defaultTopic">Default topic</label>
+    <input id="defaultTopic" type="text" placeholder="e.g. Weekly Update" />
+
+    <label for="bodyText">Email body template (optional)</label>
+    <textarea id="bodyText" rows="8" placeholder="Dear [Client] team,&#10;&#10;Please find attached…"></textarea>
+    <p class="hint">Type <strong>[Client]</strong> where the client name should appear.</p>
+
+    <button id="saveBtn" class="primary">Save</button>
+    <button id="cancelBtn">Back</button>
+    <p id="settingsStatus" class="status" role="status"></p>
+  </section>
+</body>
+</html>
