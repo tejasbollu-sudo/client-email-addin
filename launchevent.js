@@ -1,7 +1,8 @@
 /*
  * Client Email add-in - runs automatically when a new email is started.
- * Contains NO client information. The client list, topic and body text
- * are stored in the mailbox (roaming settings), not in these files.
+ * Contains NO client information. Clients come from the mailbox's
+ * "Tax Clients" contacts folder; topic and body text are stored in the
+ * mailbox (roaming settings). Nothing about clients is in these files.
  *
  * Keep this file self-contained (no imports): classic Outlook on Windows
  * loads it directly in a JavaScript-only runtime.
@@ -79,9 +80,7 @@ function cetAddBody(settings, next) {
 }
 
 function cetShowNotice(settings, next) {
-  var message = settings.clients.length
-    ? "Choose a client for this email."
-    : "Set up your client list to start using client templates.";
+  var message = "Choose the client(s) for this email.";
   Office.context.mailbox.item.notificationMessages.addAsync(
     CET_NOTICE_KEY,
     {
@@ -91,7 +90,7 @@ function cetShowNotice(settings, next) {
       actions: [
         {
           actionType: "showTaskPane",
-          actionText: settings.clients.length ? "Choose client" : "Set up",
+          actionText: "Choose client",
           commandId: CET_PANE_COMMAND,
           contextData: "{}"
         }

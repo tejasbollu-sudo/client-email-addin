@@ -6,43 +6,54 @@
   <title>Client Email</title>
   <link rel="stylesheet" href="taskpane.css" />
   <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <script type="text/javascript" src="msal-browser.min.js"></script>
   <script type="text/javascript" src="taskpane.js"></script>
 </head>
 <body>
-  <!-- Pick a client -->
+  <!-- Pick clients -->
   <section id="pickView" hidden>
     <h1>Choose client</h1>
 
-    <label for="clientFilter">Search</label>
-    <input id="clientFilter" type="text" placeholder="Type to filter…" autocomplete="off" />
+    <p id="loadStatus" class="status" role="status"></p>
+    <button id="signInBtn" class="primary" hidden>Sign in to load clients</button>
 
-    <label for="clientSelect">Client</label>
-    <select id="clientSelect" size="8"></select>
+    <div id="pickControls" hidden>
+      <label for="clientFilter">Search name or email</label>
+      <input id="clientFilter" type="text" placeholder="Type to filter…" autocomplete="off" />
 
-    <label for="topicInput">Topic</label>
-    <input id="topicInput" type="text" placeholder="e.g. Weekly Update" />
-    <p class="hint">Subject becomes: <strong id="subjectPreview">…</strong></p>
+      <div id="clientList" class="client-list" role="group" aria-label="Clients"></div>
 
-    <button id="applyBtn" class="primary">Apply</button>
-    <p id="pickStatus" class="status" role="status"></p>
+      <div id="selectedBox" class="selected" hidden>
+        <strong>Selected:</strong> <span id="selectedNames"></span>
+        <a href="#" id="clearSel" class="small-link">Clear</a>
+      </div>
+      <div id="sharedHints"></div>
 
-    <p class="footer"><a href="#" id="openSettings">Edit client list &amp; template</a></p>
+      <label for="topicInput">Topic</label>
+      <input id="topicInput" type="text" placeholder="e.g. Weekly Update" />
+      <p class="hint">Subject becomes: <strong id="subjectPreview">…</strong></p>
+
+      <button id="applyBtn" class="primary" disabled>Apply</button>
+      <p id="pickStatus" class="status" role="status"></p>
+    </div>
+
+    <p class="footer">
+      <a href="#" id="refreshLink">Reload clients</a> ·
+      <a href="#" id="openSettings">Topic &amp; template</a>
+    </p>
   </section>
 
   <!-- Settings -->
   <section id="settingsView" hidden>
-    <h1>Settings</h1>
-    <p class="hint">Saved in this mailbox only. Everyone who signs in to this ID sees the same list.</p>
-
-    <label for="clientsText">Clients (one per line)</label>
-    <textarea id="clientsText" rows="10" placeholder="Acme Corp&#10;Globex Ltd"></textarea>
+    <h1>Topic &amp; template</h1>
+    <p class="hint">Saved in this mailbox only. Clients come from the “Tax Clients” contacts folder.</p>
 
     <label for="defaultTopic">Default topic</label>
     <input id="defaultTopic" type="text" placeholder="e.g. Weekly Update" />
 
     <label for="bodyText">Email body template (optional)</label>
-    <textarea id="bodyText" rows="8" placeholder="Dear [Client] team,&#10;&#10;Please find attached…"></textarea>
-    <p class="hint">Type <strong>[Client]</strong> where the client name should appear.</p>
+    <textarea id="bodyText" rows="8" placeholder="Dear [Client],&#10;&#10;Please find attached…"></textarea>
+    <p class="hint">Type <strong>[Client]</strong> where the client name(s) should appear.</p>
 
     <button id="saveBtn" class="primary">Save</button>
     <button id="cancelBtn">Back</button>
